@@ -32,7 +32,7 @@ function App() {
     <>
       <div className='body'>
         <h1>Test Your Knowledge!</h1>
-        <h3>"Test your knowledge with this set of flashcards covering a variety of topics! From geography to literature, these flashcards will challenge your memory and help you learn new facts.</h3>
+        <h3>"Test your knowledge with this set of 10 flashcards covering a variety of topics! From geography to literature, these flashcards will challenge your memory and help you learn new facts.</h3>
         <Card answer = {prompts[index].answer} question={prompts[index].question} revealAnswer={revealAnswer} handleReveal={toggleReveal}/>
       </div>
       <button onClick={selectPreviousIndex}>&#8592;</button>
