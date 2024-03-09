@@ -1,27 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import Card from './components/card'
 import './App.css'
 
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [index, setIndex] = useState(0)
+  const [revealAnswer, setRevealAnswer] = useState(false)
+  const toggleReveal = () => {setRevealAnswer(!revealAnswer)}
   const prompts = [
-    {question: "What is my name?", answer: "Mubarak"},
-
-    {question: "What is my name?", answer: "Mubarak"}
+    {question: "Start", answer: "Press the button to start the flashcards"},
+    {question: "What is the capital city of Australia?", answer: "Canberra"},
+    {question: "What planet is known as the red planet", answer: "Mars"},
+    {question: "Who wrote 'Romeo and Juliet?'", answer: "William Shakespeare"},
+    {question: "What is the largest mammal in the world?", answer: "Blue Whale"},
+    {question: "In which country would you find the Great Barrier Reef?", answer: "Australia"},
+    {question: "What is the tallest mountain in the world?", answer: "Mount Everest"},
+    {question: "Who painted the Mona Lisa?", answer: "Leonardo da Vinci"},
+    {question: "What is the chemical symbol for gold?", answer: "Au"},
+    {question: "Which animal is known as the 'ship of the desert'?", answer: "Camel"},
+    {question: "What is the largest ocean on Earth?", answer: "Pacific Ocean"}
   ]
+  const [lastIndex, setlastIndex] = useState(0);
+  const generateRandomIndex = () => {setlastIndex(index); setIndex(Math.floor(Math.random() * (prompts.length - 1)) + 1)}
+  const selectPreviousIndex = () => {setIndex(lastIndex)}
+
+  useEffect(()=>{
+    setRevealAnswer(false);
+  }, [index])
   return (
     <>
-      {prompts.map((prompt, index) => {
-        return <Card key={index} answer={prompt.answer} question={prompt.question} />
-      })}
-
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div className='body'>
+        <h1>Test Your Knowledge!</h1>
+        <h3>"Test your knowledge with this set of flashcards covering a variety of topics! From geography to literature, these flashcards will challenge your memory and help you learn new facts.</h3>
+        <Card answer = {prompts[index].answer} question={prompts[index].question} revealAnswer={revealAnswer} handleReveal={toggleReveal}/>
+      </div>
+      <button onClick={selectPreviousIndex}>&#8592;</button>
+      <button onClick={generateRandomIndex}>&#8594;</button>
     </>
   )
 }
